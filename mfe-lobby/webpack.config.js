@@ -7,11 +7,11 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[contenthash].js',
-    publicPath: 'http://localhost:8057/',
+    publicPath: 'http://localhost:8058/',
     clean: true,
   },
   devServer: {
-    port: 8057,
+    port: 8058,
     hot: true,
     historyApiFallback: true,
     headers: {
@@ -44,10 +44,10 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: 'mfeHeader',
+      name: 'mfeLobby',
       filename: 'remoteEntry.js',
       exposes: {
-        './Navbar': './src/components/Navbar',
+        './Lobby': './src/components/Lobby',
       },
       shared: {
         react: { singleton: true, requiredVersion: '^18.2.0' },
