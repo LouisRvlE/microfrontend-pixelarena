@@ -41,8 +41,8 @@ function App() {
 
             <footer className="shell-footer">
                 <p>
-                    Shell (8059) | Header (8055) | Lobby (8056) | Catalog (8057)
-                    | Cart (8058)
+                    Shell (8055) | Header (8056) | Lobby (8057) | Catalog (8058)
+                    | Cart (8059)
                 </p>
             </footer>
         </div>

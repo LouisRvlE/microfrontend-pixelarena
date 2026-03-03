@@ -6,12 +6,21 @@ function Cart() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    const unsubscribe = eventBus.on('cart:add', (product) => {
+    // TODO 1: Ecouter l'evenement 'cart:add'
+    // Ajouter le produit a la liste items
+    const handleAddToCart = (product) => {
       setItems(prev => [...prev, { ...product, cartId: Date.now() }]);
-    });
+
+      // TODO 2: Emettre 'cart:updated' avec le nouveau total
+      // Le Header va ecouter cet evenement pour afficher le badge
+    };
+
+    const unsubscribe = eventBus.on('cart:add', handleAddToCart);
+
     return () => unsubscribe();
   }, []);
 
+  // Emettre cart:updated quand items change
   useEffect(() => {
     eventBus.emit('cart:updated', {
       count: items.length,
