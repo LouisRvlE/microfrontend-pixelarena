@@ -4,27 +4,19 @@ import './Navbar.css';
 
 function Navbar() {
   const [notifications, setNotifications] = useState(0);
+  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
-    // TODO 1: S'abonner a l'evenement 'game:joined'
-    // Quand on recoit cet evenement, incrementer les notifications
-    //
-    // Indice: eventBus.on('nomEvenement', (data) => { ... })
-    //
-    // La fonction doit:
-    // 1. Incrementer notifications de 1 avec setNotifications
-    // 2. Optionnel: afficher data.gameName dans la console
-    //
-    // Ecrivez votre code ici:
+    const onGameJoined = () => setNotifications(n => n + 1);
+    const onCartUpdated = (data) => setCartCount((data && data.count) || 0);
 
+    const unsubGame = eventBus.on('game:joined', onGameJoined);
+    const unsubCart = eventBus.on('cart:updated', onCartUpdated);
 
-    // TODO 2: Se desabonner quand le composant est demonte
-    // C'est IMPORTANT pour eviter les memory leaks !
-    //
-    // Indice: retourner une fonction cleanup dans useEffect
-    //
-    // return () => { ... };
-
+    return () => {
+      unsubGame();
+      unsubCart();
+    };
   }, []);
 
   return (
@@ -36,12 +28,21 @@ function Navbar() {
 
       <div className="navbar-menu">
         <button className="nav-button">Lobby</button>
-        <button className="nav-button">Scores</button>
+        <button className="nav-button">Boutique</button>
       </div>
 
       <div className="navbar-user">
         <span className="username">Joueur_42</span>
+
+        {/* Icone Panier */}
+        <button className="nav-button cart-btn">
+          🛒
+          {cartCount > 0 && <span className="badge cart-badge">{cartCount}</span>}
+        </button>
+
+        {/* Icone Notifications */}
         <button className="nav-button notification-btn">
+          🔔
           {notifications > 0 && <span className="badge">{notifications}</span>}
         </button>
       </div>
