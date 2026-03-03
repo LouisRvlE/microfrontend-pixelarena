@@ -6,11 +6,12 @@ function Navbar() {
     const [notifications, setNotifications] = useState(0);
 
     useEffect(() => {
-        const unsubscribe = eventBus.on("game:joined", () => {
+        const unsubscribe = eventBus.on("game:joined", (data) => {
             setNotifications((n) => n + 1);
+            if (data && data.gameName) console.log(data.gameName);
         });
 
-        return unsubscribe;
+        return () => unsubscribe();
     }, []);
 
     return (

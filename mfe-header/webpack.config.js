@@ -7,11 +7,11 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "[name].[contenthash].js",
-        publicPath: "http://localhost:8057/",
+        publicPath: "http://localhost:8056/",
         clean: true,
     },
     devServer: {
-        port: 8057,
+        port: 8056,
         hot: true,
         historyApiFallback: true,
         headers: {

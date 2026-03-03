@@ -11,8 +11,9 @@ const GAMES = [
 
 function GameCard({ game }) {
     const handleJoinGame = () => {
-        eventBus.emit("game:joined", { gameId: game.id, name: game.name });
+        eventBus.emit("game:joined", { gameName: game.name });
 
+        // Feedback visuel (gardez cette ligne)
         alert(`Vous avez rejoint : ${game.name}`);
     };
 
@@ -48,6 +49,13 @@ function Lobby() {
                 {GAMES.map((game) => (
                     <GameCard key={game.id} game={game} />
                 ))}
+            </div>
+
+            <div className="lobby-hint">
+                <p>
+                    Cliquez sur "Rejoindre" pour envoyer un evenement au Header
+                    !
+                </p>
             </div>
         </div>
     );

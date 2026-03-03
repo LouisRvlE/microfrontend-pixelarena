@@ -7,16 +7,14 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "[name].[contenthash].js",
-        publicPath: "http://localhost:8059/",
+        publicPath: "http://localhost:8058/",
         clean: true,
     },
     devServer: {
-        port: 8059,
+        port: 8058,
         hot: true,
         historyApiFallback: true,
-        headers: {
-            "Access-Control-Allow-Origin": "*",
-        },
+        headers: { "Access-Control-Allow-Origin": "*" },
     },
     module: {
         rules: [
@@ -30,33 +28,25 @@ module.exports = {
                     },
                 },
             },
-            {
-                test: /\.css$/,
-                use: ["style-loader", "css-loader"],
-            },
+            { test: /\.css$/, use: ["style-loader", "css-loader"] },
         ],
     },
     resolve: {
         extensions: [".js", ".jsx"],
-        alias: {
-            shared: path.resolve(__dirname, "../shared"),
-        },
+        alias: { shared: path.resolve(__dirname, "../shared") },
     },
     plugins: [
         new ModuleFederationPlugin({
-            name: "shell",
-            remotes: {
-                mfeHeader: "mfeHeader@http://localhost:8056/remoteEntry.js",
-                mfeLobby: "mfeLobby@http://localhost:8057/remoteEntry.js",
-                mfeCatalog: "mfeCatalog@http://localhost:8058/remoteEntry.js",
+            name: "mfeCatalog",
+            filename: "remoteEntry.js",
+            exposes: {
+                "./Catalog": "./src/components/Catalog",
             },
             shared: {
                 react: { singleton: true, requiredVersion: "^18.2.0" },
                 "react-dom": { singleton: true, requiredVersion: "^18.2.0" },
             },
         }),
-        new HtmlWebpackPlugin({
-            template: "./public/index.html",
-        }),
+        new HtmlWebpackPlugin({ template: "./public/index.html" }),
     ],
 };
