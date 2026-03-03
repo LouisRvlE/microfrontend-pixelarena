@@ -7,11 +7,11 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "[name].[contenthash].js",
-        publicPath: "http://localhost:3000/",
+        publicPath: "http://localhost:8058/",
         clean: true,
     },
     devServer: {
-        port: 3000,
+        port: 8058,
         hot: true,
         historyApiFallback: true,
         headers: {
@@ -41,11 +41,10 @@ module.exports = {
     },
     plugins: [
         new ModuleFederationPlugin({
-            // TODO 1: Donner un nom au Shell
             name: "shell",
-            // TODO 2: Configurer les remotes (vide pour l'instant)
-            remotes: {},
-            // TODO 3: Configurer les dependances partagees
+            remotes: {
+                mfeHeader: "mfeHeader@http://localhost:8057/remoteEntry.js",
+            },
             shared: {
                 react: { singleton: true, requiredVersion: "^18.2.0" },
                 "react-dom": { singleton: true, requiredVersion: "^18.2.0" },
