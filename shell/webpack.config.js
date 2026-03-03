@@ -7,7 +7,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[contenthash].js',
-    publicPath: 'auto',
+    publicPath: 'http://localhost:8055/',
     clean: true,
   },
   devServer: {

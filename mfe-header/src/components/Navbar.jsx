@@ -7,9 +7,9 @@ function Navbar() {
   const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
-    // TODO 1: const unsub1 = eventBus.on('game:joined', () => setNotifications(n => n + 1))
-    // TODO 2: const unsub2 = eventBus.on('cart:updated', ({ count }) => setCartCount(count))
-    // TODO 3: return () => { unsub1(); unsub2(); }
+    const unsub1 = eventBus.on('game:joined', () => setNotifications(n => n + 1));
+    const unsub2 = eventBus.on('cart:updated', ({ count }) => setCartCount(count));
+    return () => { unsub1(); unsub2(); };
   }, []);
 
   return (

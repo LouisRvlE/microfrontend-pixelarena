@@ -1,10 +1,44 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense } from "react";
 import "./App.css";
+import safeLazy from "./safeLazy";
+import loadRemoteEntry from "./loadRemote";
 
-const Header = lazy(() => import("mfeHeader/Navbar"));
-const Lobby = lazy(() => import("mfeLobby/Lobby"));
-const Catalog = lazy(() => import("mfeCatalog/Catalog"));
-const Cart = lazy(() => import("mfeCart/Cart"));
+const Header = safeLazy(
+    () =>
+        loadRemoteEntry(
+            "http://localhost:8056/remoteEntry.js",
+            "mfeHeader",
+            "./Navbar",
+        ),
+    { name: "Header" },
+);
+const Lobby = safeLazy(
+    () =>
+        loadRemoteEntry(
+            "http://localhost:8057/remoteEntry.js",
+            "mfeLobby",
+            "./Lobby",
+        ),
+    { name: "Lobby" },
+);
+const Catalog = safeLazy(
+    () =>
+        loadRemoteEntry(
+            "http://localhost:8058/remoteEntry.js",
+            "mfeCatalog",
+            "./Catalog",
+        ),
+    { name: "Catalog" },
+);
+const Cart = safeLazy(
+    () =>
+        loadRemoteEntry(
+            "http://localhost:8059/remoteEntry.js",
+            "mfeCart",
+            "./Cart",
+        ),
+    { name: "Cart" },
+);
 
 function LoadingFallback({ name }) {
     return <div className="loading-fallback">Chargement {name}...</div>;
